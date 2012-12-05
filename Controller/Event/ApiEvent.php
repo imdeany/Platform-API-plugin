@@ -65,11 +65,15 @@ class ApiEvent extends CrudBaseEvent {
 	public function afterSave(CakeEvent $event) {
 		if ($event->subject->success) {
 			$model = $event->subject->model;
-			$event->subject->controller->set('data', array(
+			$data = array(
 				$model->alias => array(
 					$model->primaryKey => $event->subject->model->id
 				)
-			));
+			);
+			if (isset($event->subject->controller->viewVars['data'])) {
+				$data = array_merge($data, $event->subject->controller->viewVars['data']);
+			}
+			$event->subject->controller->set(compact('data'));
 
 			$response = $event->subject->controller->render();
 			$response->statusCode(201);
