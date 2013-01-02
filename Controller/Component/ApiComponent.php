@@ -140,6 +140,10 @@ class ApiComponent extends Component {
 		$token = ApiUtility::getRequestToken($this->request);
 		$this->controller->set('apiAccessToken', $token);
 		$this->controller->set('allowJsonp', $this->allowJsonp);
+
+		if (!empty($this->settings['hideNavigationLinks'])) {
+			$this->controller->set('hideNavigationLinks', $this->settings['hideNavigationLinks']);
+		}
 	}
 
 	/**
