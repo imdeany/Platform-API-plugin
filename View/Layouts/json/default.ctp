@@ -31,7 +31,7 @@ if (isset($this->Paginator) && $this->Paginator->defaultModel()) {
 	}
 
 	// Removing navigation links
-	if ($hideNavigationLinks) {
+	if (!empty($hideNavigationLinks)) {
 		unset($pagination['prev'], $pagination['next']);
 	}
 }
